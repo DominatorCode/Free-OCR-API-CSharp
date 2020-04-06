@@ -1,4 +1,4 @@
-﻿namespace OCRAPITest
+﻿namespace OCRAPI
 {
     partial class Form1
     {
@@ -30,13 +30,17 @@
         {
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.txtResult = new System.Windows.Forms.TextBox();
+            this.pictureBoxNormilized = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
             this.cmbLanguage = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnPDF = new System.Windows.Forms.Button();
             this.lblInfo = new System.Windows.Forms.Label();
+            this.labelDpi = new System.Windows.Forms.Label();
+            this.numericDpi = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxNormilized)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericDpi)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox
@@ -63,15 +67,18 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // txtResult
+            // pictureBoxNormilized
             // 
-            this.txtResult.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.pictureBoxNormilized.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtResult.Location = new System.Drawing.Point(365, 45);
-            this.txtResult.Multiline = true;
-            this.txtResult.Name = "txtResult";
-            this.txtResult.Size = new System.Drawing.Size(304, 250);
-            this.txtResult.TabIndex = 2;
+            this.pictureBoxNormilized.BackColor = System.Drawing.Color.White;
+            this.pictureBoxNormilized.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBoxNormilized.Location = new System.Drawing.Point(365, 45);
+            this.pictureBoxNormilized.Name = "pictureBoxNormilized";
+            this.pictureBoxNormilized.Size = new System.Drawing.Size(304, 250);
+            this.pictureBoxNormilized.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxNormilized.TabIndex = 2;
+            this.pictureBoxNormilized.TabStop = false;
             // 
             // button2
             // 
@@ -80,7 +87,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 61);
             this.button2.TabIndex = 3;
-            this.button2.Text = "Recognize";
+            this.button2.Text = "Normalize";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -132,6 +139,7 @@
             this.btnPDF.TabIndex = 6;
             this.btnPDF.Text = "Load PDF";
             this.btnPDF.UseVisualStyleBackColor = true;
+            this.btnPDF.Visible = false;
             this.btnPDF.Click += new System.EventHandler(this.btnPDF_Click);
             // 
             // lblInfo
@@ -144,22 +152,60 @@
             this.lblInfo.TabIndex = 7;
             this.lblInfo.Text = "(Filename will be displayed here)";
             // 
+            // labelDpi
+            // 
+            this.labelDpi.AutoSize = true;
+            this.labelDpi.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.labelDpi.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDpi.Location = new System.Drawing.Point(346, 20);
+            this.labelDpi.Name = "labelDpi";
+            this.labelDpi.Size = new System.Drawing.Size(30, 15);
+            this.labelDpi.TabIndex = 8;
+            this.labelDpi.Text = "DPI";
+            // 
+            // numericDpi
+            // 
+            this.numericDpi.Location = new System.Drawing.Point(383, 17);
+            this.numericDpi.Maximum = new decimal(new int[] {
+            600,
+            0,
+            0,
+            0});
+            this.numericDpi.Minimum = new decimal(new int[] {
+            96,
+            0,
+            0,
+            0});
+            this.numericDpi.Name = "numericDpi";
+            this.numericDpi.Size = new System.Drawing.Size(48, 20);
+            this.numericDpi.TabIndex = 9;
+            this.numericDpi.Value = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            this.numericDpi.ValueChanged += new System.EventHandler(this.numericDpi_ValueChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(681, 313);
+            this.Controls.Add(this.numericDpi);
+            this.Controls.Add(this.labelDpi);
             this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.btnPDF);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbLanguage);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.txtResult);
+            this.Controls.Add(this.pictureBoxNormilized);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBox);
             this.Name = "Form1";
-            this.Text = "OCR.SPACE Free OCR API - Test App";
+            this.Text = "OCR Text Image Normalization App";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxNormilized)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericDpi)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -169,12 +215,14 @@
 
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox txtResult;
+        private System.Windows.Forms.PictureBox pictureBoxNormilized;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox cmbLanguage;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnPDF;
         private System.Windows.Forms.Label lblInfo;
+        private System.Windows.Forms.Label labelDpi;
+        private System.Windows.Forms.NumericUpDown numericDpi;
     }
 }
 

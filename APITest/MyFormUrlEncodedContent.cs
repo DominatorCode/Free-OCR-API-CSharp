@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 
-namespace OCRAPITest
+namespace OCRAPI
 {
     public class MyFormUrlEncodedContent : ByteArrayContent
     {
         public MyFormUrlEncodedContent(IEnumerable<KeyValuePair<string, string>> nameValueCollection)
             : base(MyFormUrlEncodedContent.GetContentByteArray(nameValueCollection))
         {
-            base.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+            Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
         }
         private static byte[] GetContentByteArray(IEnumerable<KeyValuePair<string, string>> nameValueCollection)
         {
             if (nameValueCollection == null)
             {
-                throw new ArgumentNullException("nameValueCollection");
+                throw new ArgumentNullException(nameof(nameValueCollection));
             }
             StringBuilder stringBuilder = new StringBuilder();
             foreach (KeyValuePair<string, string> current in nameValueCollection)
@@ -39,7 +39,7 @@ namespace OCRAPITest
             {
                 return string.Empty;
             }
-            return System.Net.WebUtility.UrlEncode(data).Replace("%20", "+");
+            return System.Net.WebUtility.UrlEncode(data)?.Replace("%20", "+");
         }
     }
 }

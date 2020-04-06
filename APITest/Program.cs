@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace OCRAPITest
+namespace OCRAPI
 {
     static class Program
     {
